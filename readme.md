@@ -2,74 +2,23 @@
 
 Unofficial Docker Image for [JBake](http://jbake.org/).
 
-[![](https://images.microbadger.com/badges/image/jeci/jbake-docker.svg)](https://microbadger.com/images/jeci/jbake-docker "Get your own image badge on microbadger.com")
+[![Docker Repository on Quay](https://quay.io/repository/jeci/jbake-docker/status "Docker Repository on Quay")](https://quay.io/repository/jeci/jbake-docker)
+
 
 ## Quick Start
 
-```bash
-docker run --rm -it --net=host jeci/jbake-docker
-```
-
-Then go http://localhost:8820/
-
-## Bake your own
-
-### first init jbake
-
-```bash
+``` bash
 mkdir jbake_sample
-docker run --rm -v $PWD/jbake_sample:/data -t jeci/jbake-docker -i
+docker run --rm -v $PWD/jbake_sample:/data quay.io/jeci/jbake-docker:2.6 -i
+docker run --rm -v $PWD/jbake_sample:/data --net=host -ti quay.io/jeci/jbake-docker:2.6
+# Then go http://localhost:8820/
+ls jbake_sample/output
 ```
 
-### Bake
+Without parameter, docker run `jbake -b -s` run `-h for help`
 
-Make your change in `jbake_sample` then build :
-
-```bash
-docker run --rm -v $PWD/jbake_sample:/data -t jeci/jbake-docker -b
-ls data/output
+``` bash
+docker run --rm -ti quay.io/jeci/jbake-docker:2.6 -h
 ```
 
-## Preview
-
-Test with embebded jetty and go to http://localhost:8820/
-
-```bash
-docker run --rm -v $PWD/jbake_sample:/data --net=host -it jeci/jbake-docker -s
-```
-
-## Deploy
-
-Finaly deploy to your own server with simple rsync.
-
-```bash
-rsync -az jbake_sample/output/ example.org:/var/www/html/
-```
-
-## Faster
-
-Without parameter, docker run `jbake -b -s`, so in my own project I did :
-
-```bash
-cd www.example.org
-docker run -v $PWD:/data --net=host --name=jbake --rm -it jeci/jbake-docker
-```
-
-If you build / test often, start server in detach mode.
-
-```bash
-cd www.example.org
-docker run -v $PWD:/data --net=host --name=jbake -dt jeci/jbake-docker
-
-// work
-docker run -v $PWD:/data --rm -it jeci/jbake-docker -b
-// work more
-docker run -v $PWD:/data --rm -it jeci/jbake-docker -b
-
-// ending
-docker stop jbake
-docker rm jbake
-```
-
-But in reality I'm not running jbake on my computer, I use gitlab-ci to build and
-deploy my site automaticaly.
+More information on [project page](https://jeci.fr/projets/jbake-docker.html)
