@@ -1,11 +1,11 @@
-FROM java:8-jre
-MAINTAINER Jeremie Lesage <jeremie.lesage@gmail.com>
+FROM openjdk:8-jre
 
-ENV JBAKE_VERSION=2.5.0 \
-    JBAKE_SHA1=13f7a2b9fd064fcfe16a6862947364bb1c62d3d9 \
+ENV JBAKE_VERSION=2.4.0 \
+    JBAKE_SHA1=e53633c6cd6ba714a8876cadc02fe41e7790c5db \
     JBAKE_DATA="/data"
 
-RUN curl http://jbake.org/files/jbake-${JBAKE_VERSION}-bin.zip -o /root/jbake-bin.zip \
+RUN curl -sSL https://dl.bintray.com/jbake/binary/jbake-${JBAKE_VERSION}-bin.zip \
+         -o /root/jbake-bin.zip \
     && echo "$JBAKE_SHA1  /root/jbake-bin.zip" | sha1sum --status -c - \
     && unzip /root/jbake-bin.zip -d /opt \
     && rm /root/jbake-bin.zip
