@@ -21,4 +21,4 @@ VOLUME "$JBAKE_DATA"
 EXPOSE 8820
 
 ENTRYPOINT ["jbake"]
-CMD ["-b -s"]
+CMD ["-b", "-s"]
