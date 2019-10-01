@@ -9,9 +9,10 @@ RUN curl -sSL https://dl.bintray.com/jbake/binary/jbake-${JBAKE_VERSION}-bin.zip
          -o /root/jbake-bin.zip \
     && echo "$JBAKE_SHA1  /root/jbake-bin.zip" | sha1sum --status -c - \
     && unzip /root/jbake-bin.zip -d /opt \
-    && rm /root/jbake-bin.zip
+    && rm /root/jbake-bin.zip \
+    && chmod 755 /opt/jbake-$JBAKE_VERSION/bin/*
 
-ENV JBAKE_HOME /opt/jbake-$JBAKE_VERSION-bin/
+ENV JBAKE_HOME /opt/jbake-$JBAKE_VERSION-bin
 ENV PATH $JBAKE_HOME/bin:$PATH
 
 RUN mkdir -p "/data"
